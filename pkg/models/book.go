@@ -29,3 +29,12 @@ func GetAllBooks() []Book {
 	db.Find(&Books)
 	return Books
 }
+
+func GetBookById(Id int64) (*Book, error) {
+	var book Book
+	err := db.Where("ID=?", Id).Find(&book).Error
+	if err != nil {
+		return nil, err
+	}
+	return &book, nil
+}
