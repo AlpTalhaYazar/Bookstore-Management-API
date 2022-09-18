@@ -10,7 +10,6 @@ var db *gorm.DB
 
 type Book struct {
 	gorm.Model
-	ID          int64  `gorm:""json:"id"`
 	Name        string `gorm:""json:"name"`
 	Author      string `gorm:""json:"author"`
 	Publication string `gorm:""json:"publication"`
