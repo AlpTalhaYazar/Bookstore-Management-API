@@ -38,3 +38,9 @@ func GetBookById(Id int64) (*Book, error) {
 	}
 	return &book, nil
 }
+
+func (b *Book) CreateBook() *Book {
+	db.NewRecord(b)
+	db.Create(&b)
+	return b
+}
