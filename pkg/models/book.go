@@ -44,3 +44,14 @@ func (b *Book) CreateBook() *Book {
 	db.Create(&b)
 	return b
 }
+
+func (b *Book) UpdateBookById() bool {
+	isRecordNotFound := db.Model(&Book{}).Where("ID=?", b.ID).Find(&Book{}).RecordNotFound()
+	if isRecordNotFound {
+		fmt.Println("Book not found")
+		return false
+	}
+
+	db.Model(&Book{}).Where("ID=?", b.ID).Update(&b)
+	return true
+}

@@ -59,3 +59,28 @@ func CreateBook(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 	w.Write(res)
 }
+
+func UpdateBookById(w http.ResponseWriter, r *http.Request) {
+	params := mux.Vars(r)
+	id := params["bookId"]
+	bookId, err := strconv.ParseInt(id, 0, 0)
+
+	if err != nil {
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusNotAcceptable)
+		return
+	}
+
+	UpdateBook := &models.Book{ID: bookId}
+
+	utils.ParseBody(r, UpdateBook)
+	isUpdateSuccessful := UpdateBook.UpdateBookById()
+
+	if !isUpdateSuccessful {
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusNotFound)
+		fmt.Println("Book not found")
+	}
+
+	w.WriteHeader(http.StatusNoContent)
+}
