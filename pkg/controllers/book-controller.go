@@ -71,9 +71,10 @@ func UpdateBookById(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	UpdateBook := &models.Book{ID: bookId}
+	var UpdateBook models.Book
+	UpdateBook.Model.ID = uint(bookId)
 
-	utils.ParseBody(r, UpdateBook)
+	utils.ParseBody(r, &UpdateBook)
 	isUpdateSuccessful := UpdateBook.UpdateBookById()
 
 	if !isUpdateSuccessful {
