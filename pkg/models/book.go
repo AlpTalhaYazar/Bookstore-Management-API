@@ -55,3 +55,14 @@ func (b *Book) UpdateBookById() bool {
 	db.Model(&Book{}).Where("ID=?", b.ID).Update(&b)
 	return true
 }
+
+func DeleteBookById(Id int64) bool {
+	isRecordNotFound := db.Model(&Book{}).Where("ID=?", Id).Find(&Book{}).RecordNotFound()
+	if isRecordNotFound {
+		fmt.Println("Book not found")
+		return false
+	}
+
+	db.Where("ID=?", Id).Delete(&Book{})
+	return true
+}
