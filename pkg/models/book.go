@@ -22,3 +22,10 @@ func init() {
 	db = config.GetDB()
 	db.AutoMigrate(&Book{})
 }
+
+func GetAllBooks() []Book {
+	var Books []Book
+
+	db.Find(&Books)
+	return Books
+}
