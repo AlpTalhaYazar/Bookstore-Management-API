@@ -45,13 +45,13 @@ func (b *Book) CreateBook() *Book {
 }
 
 func (b *Book) UpdateBookById() bool {
-	isRecordNotFound := db.Model(&Book{}).Where("ID=?", b.ID).Find(&Book{}).RecordNotFound()
+	isRecordNotFound := db.Model(&Book{}).Where("ID=?", b.Model.ID).Find(&Book{}).RecordNotFound()
 	if isRecordNotFound {
 		fmt.Println("Book not found")
 		return false
 	}
 
-	db.Model(&Book{}).Where("ID=?", b.ID).Update(&b)
+	db.Model(&Book{}).Where("ID=?", b.Model.ID).Update(&b)
 	return true
 }
 
